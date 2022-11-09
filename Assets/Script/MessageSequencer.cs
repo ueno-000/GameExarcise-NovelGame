@@ -23,10 +23,12 @@ public class MessageSequencer : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            MoveNext();
+            if (_printer is { IsPrinting: false }) // if (_printer != null && !_printer.IsPrinting) ‚Æ“¯‚¶
+            {
+                MoveNext();
+            }
         }
     }
-
 
     private void MoveNext()
     {
@@ -42,5 +44,13 @@ public class MessageSequencer : MonoBehaviour
     private void ShowMassege(string v)
     {
         _textUi.text = v;
+    }
+
+    public void Skip()
+    {
+        if (_messages is null) { return; }
+
+        _currentIndex = _messages.Length;
+        _textUi.text = _messages;
     }
 }
